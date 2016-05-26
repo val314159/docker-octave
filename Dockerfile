@@ -41,13 +41,17 @@ RUN useradd -ms /bin/bash -p visitor guest
 RUN echo val:valval | chpasswd
 RUN echo guest:visitor | chpasswd
 
+WORKDIR /root
+#RUN ssh-keygen -t rsa -f val -P ''
+
 RUN mkdir /home/val/.ssh
 RUN chown val:val /home/val/.ssh
 RUN chmod 700 /home/val/.ssh
 
 COPY ./start.sh /root/
-RUN chmod +x /root/start.sh
+#RUN chmod +x /root/start.sh
 
+#RUN cp /home/root/val.pub /home/val/.ssh/authorized_keys
 COPY ./val.pub /home/val/.ssh/authorized_keys
 RUN chown val:val /home/val/.ssh/authorized_keys
 RUN chmod 600  /home/val/.ssh/authorized_keys
